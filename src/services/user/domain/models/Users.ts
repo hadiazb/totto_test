@@ -8,17 +8,29 @@ export interface UsersAttributes {
   firstName?: string;
   lastName?: string;
   phone?: string;
-  address?: string
+  address?: string;
   isFather?: boolean;
   isUpdate?: boolean;
   sex?: boolean;
   acceptTyC?: boolean;
-  acceptTPD?: boolean
+  acceptTPD?: boolean;
 }
 
 export type UsersPk = 'id';
 export type UsersId = Users[UsersPk];
-export type UsersOptionalAttributes = 'id' | 'email' | 'identification' | 'firstName' | 'lastName' | 'phone' | 'address' | 'isFather' | 'isUpdate' | 'sex' | 'acceptTyC' | 'acceptTPD'
+export type UsersOptionalAttributes =
+  | 'id'
+  | 'email'
+  | 'identification'
+  | 'firstName'
+  | 'lastName'
+  | 'phone'
+  | 'address'
+  | 'isFather'
+  | 'isUpdate'
+  | 'sex'
+  | 'acceptTyC'
+  | 'acceptTPD';
 export type UsersCreationAttributes = Optional<UsersAttributes, UsersOptionalAttributes>;
 
 export class Users
@@ -31,12 +43,12 @@ export class Users
   firstName?: string;
   lastName?: string;
   phone?: string;
-  address?: string
+  address?: string;
   isFather?: boolean;
   isUpdate?: boolean;
   sex?: boolean;
   acceptTyC?: boolean;
-  acceptTPD?: boolean
+  acceptTPD?: boolean;
 
   static initModel(sequelize: Sequelize.Sequelize): typeof Users {
     return Users.init(
@@ -101,6 +113,8 @@ export class Users
         sequelize,
         tableName: 'Users',
         timestamps: true,
+        paranoid: true,
+        schema: 'public',
         indexes: [
           {
             name: 'Users_pkey',

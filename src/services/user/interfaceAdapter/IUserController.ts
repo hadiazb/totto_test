@@ -1,10 +1,9 @@
-import { Users } from '../../../database/init-model';
-import { IUserCreator } from '../application/interface/IUserCreator';
+import { Users, UsersAttributes } from '../../../database/init-model';
 
 export interface IUserController {
-  findAll(): Promise<Users[] | string>;
+  findAll(): Promise<{ users: Users[]; message: string }>;
   findOne(id: string): Promise<Users | string>;
   deleteOne(id: string): Promise<number | string>;
-  createOne(body: IUserCreator, role: string): Promise<Users | string>;
-  updateOne(id: string, body: IUserCreator): Promise<string>;
+  createOne(body: UsersAttributes): Promise<Users | string>;
+  updateOne(id: string, user: UsersAttributes): Promise<string>;
 }

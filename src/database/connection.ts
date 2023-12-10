@@ -2,11 +2,11 @@ import { Sequelize } from 'sequelize';
 import { config } from '../config';
 
 export const sequelize: Sequelize = new Sequelize(
-  config.environment.database.dbName,
-  config.environment.database.dbUser,
-  config.environment.database.dbPassword,
+  config.app.dataBase.dbName,
+  config.app.dataBase.dbUser,
+  config.app.dataBase.dbPassword,
   {
-    host: config.environment.database.dbHost,
+    host: config.app.dataBase.dbHost,
     dialect: 'mysql',
     minifyAliases: true
   }

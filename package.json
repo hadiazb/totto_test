@@ -6,7 +6,8 @@
   "scripts": {
     "ts": "tsc -w",
     "dev": "nodemon ./dist/index",
-    "start": "tsc && node ./dist/index",
+    "server": "tsc && npm run dev",
+    "start": "node ./dist/index",
     "lint": "eslint ./src/**/*.ts --quiet  --fix"
   },
   "keywords": [],
@@ -36,6 +37,7 @@
     "bcrypt": "^5.0.1",
     "cors": "^2.8.5",
     "dotenv": "^16.0.0",
+    "env-cmd": "^10.1.0",
     "express": "^4.17.2",
     "helmet": "^5.0.2",
     "joi": "^17.6.0",

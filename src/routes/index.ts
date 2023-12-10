@@ -1,10 +1,10 @@
 import { Router } from 'express';
-import { config } from '../config/index';
+import { config } from '../config';
 
 class Routes {
   public configuration = config;
 
-  public path = this.configuration.path;
+  public path = this.configuration.app.server.path;
 
   constructor() {
     this.router = Router();
@@ -12,15 +12,15 @@ class Routes {
   }
 
   public router: Router;
-  public baseUrl = `${this.configuration.environment.app.host}${
-    this.configuration.env === 'develop' ? ':' + this.configuration.port : ''
+  public baseUrl = `${this.configuration.app.server.host}${
+    this.configuration.env === 'development' ? ':' + this.configuration.app.server.port : ''
   }${this.path}`;
 
   public routes() {
     this.router.get(this.path, (_, res) => {
       res.send({
         baseUrl: this.baseUrl,
-        userEndPoint: `${this.baseUrl}/user`,
+        userEndPoint: `${this.baseUrl}/user`
       });
     });
   }

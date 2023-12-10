@@ -15,6 +15,7 @@ import { initModels } from '../database/init-model';
 
 import routes from '../routes';
 import userRoutes from '../services/user/infrastructure/UserRoutes';
+import statesRoutes from '../services/state/infrastructure/StateRoutes';
 
 import { ErrorsHandler } from '../utils/error.handler';
 
@@ -22,7 +23,7 @@ export class Server implements IServer {
   public application!: express.Application;
   public configuration = config;
   public database = sequelize;
-  public path = this.configuration.path;
+  public path = this.configuration.app.server.path;
   public errorHandler: ErrorsHandler = new ErrorsHandler();
   public io: socketIO.Server;
   public server;
@@ -43,7 +44,7 @@ export class Server implements IServer {
   }
 
   public middlewaresAfter() {
-    this.application.set('port', this.configuration.port);
+    this.application.set('port', this.configuration.app.server.port);
     this.application.use(helmet());
     this.application.use(
       express.urlencoded({
@@ -64,14 +65,15 @@ export class Server implements IServer {
   public routes() {
     this.application.use(routes);
     this.application.use(`${this.path}/user`, userRoutes);
+    this.application.use(`${this.path}/states`, statesRoutes);
   }
 
   public start() {
     this.server.listen(this.application.get('port'), () => {
       console.log(
         `This is a ${this.configuration.env} environment, Running on ${
-          this.configuration.environment.app.host
-        }${this.configuration.env === 'develop' ? ':' + this.application.get('port') : ''}`
+          this.configuration.app.server.host
+        }${this.configuration.env === 'development' ? ':' + this.application.get('port') : ''}`
       );
       this.connectionDB();
       this.initModels();
@@ -82,7 +84,7 @@ export class Server implements IServer {
     try {
       this.database.sync({ force: true });
       console.log(
-        `Database connected on ${this.configuration.env} environment Database Name: ${this.configuration.environment.database.dbName}`
+        `Database connected on ${this.configuration.env} environment Database Name: ${this.configuration.app.dataBase.dbName}`
       );
     } catch (error) {
       console.log(error);

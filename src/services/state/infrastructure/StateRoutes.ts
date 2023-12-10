@@ -1,10 +1,10 @@
 import { Router, Request, NextFunction, Response } from 'express';
 import Container from 'typedi';
 
-import UserApi from './UserApi';
+import StateApi from './StateApi';
 import { config } from '../../../config';
 
-class UserRoutes {
+class StateRoutes {
   public router: Router;
   public configuration = config;
   public path = this.configuration.app.server.path;
@@ -18,7 +18,7 @@ class UserRoutes {
   }
 
   public Routes() {
-    const userApi = Container.get(UserApi);
+    const stateApi = Container.get(StateApi);
 
     this.router.get('/', (req: Request, res: Response, next: NextFunction) => {
       res.send({
@@ -35,30 +35,25 @@ class UserRoutes {
       });
     });
 
-    this.router.get(
-      '/findAll',
-      (req: Request, res: Response, next: NextFunction) => userApi.findAll(req, res, next)
+    this.router.get('/findAll', (req: Request, res: Response, next: NextFunction) =>
+      stateApi.findAll(req, res, next)
     );
-    this.router.get(
-      '/findOne/:id',
-      (req: Request, res: Response, next: NextFunction) => userApi.findOne(req, res, next)
+    this.router.get('/findOne/:id', (req: Request, res: Response, next: NextFunction) =>
+      stateApi.findOne(req, res, next)
     );
-    this.router.delete(
-      '/deleteOne/:id',
-      (req: Request, res: Response, next: NextFunction) => userApi.deleteOne(req, res, next)
+    this.router.delete('/deleteOne/:id', (req: Request, res: Response, next: NextFunction) =>
+      stateApi.deleteOne(req, res, next)
     );
-    this.router.post(
-      '/createOne',
-      (req: Request, res: Response, next: NextFunction) => userApi.createOne(req, res, next)
+    this.router.post('/createOne', (req: Request, res: Response, next: NextFunction) =>
+      stateApi.createOne(req, res, next)
     );
-    this.router.put(
-      '/updateOne/:id',
-      (req: Request, res: Response, next: NextFunction) => userApi.updateOne(req, res, next)
+    this.router.put('/updateOne/:id', (req: Request, res: Response, next: NextFunction) =>
+      stateApi.updateOne(req, res, next)
     );
   }
 }
 
-const userRoutes = new UserRoutes();
-userRoutes.Routes();
+const stateRoutes = new StateRoutes();
+stateRoutes.Routes();
 
-export default userRoutes.router;
+export default stateRoutes.router;
