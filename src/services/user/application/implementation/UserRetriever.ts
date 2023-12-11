@@ -12,7 +12,11 @@ export class UserRetriever implements IUserRetriever {
     return await await this.userRepository.findAll();
   }
 
-  public async findOne(id: string): Promise<Users | string> {
+  public async findOne(id: string): Promise<{ user: Users; message: string }> {
     return await this.userRepository.findOne(id);
+  }
+
+  public async findByEmail(email: string): Promise<{ user: Users; message: string }> {
+    return await this.userRepository.findByEmail(email);
   }
 }

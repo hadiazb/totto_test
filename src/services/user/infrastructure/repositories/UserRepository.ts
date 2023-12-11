@@ -21,17 +21,34 @@ export class UserRepository implements IUserRepository {
     }
   }
 
-  public async findOne(id: string): Promise<Users | string> {
+  public async findOne(id: string): Promise<{ user: Users; message: string }> {
     try {
       const user = await Users.findByPk(id);
-
       if (!user) {
         throw boom.notFound(`The user with ${id} not found`);
       }
 
-      return user;
+      return { user, message: `The user with ${id} found` };
     } catch (error: any) {
       throw boom.notFound(`The user with ${id} not found`);
+    }
+  }
+
+  public async findByEmail(email: string): Promise<{ user: Users; message: string }> {
+    try {
+      const user = await Users.findOne({
+        where: {
+          email
+        }
+      });
+
+      if (!user) {
+        throw boom.notFound(`The user with ${email} not found`);
+      }
+
+      return { user, message: `The user with ${email} found` };
+    } catch (error: any) {
+      throw boom.notFound(`The user with ${email} not found`);
     }
   }
 

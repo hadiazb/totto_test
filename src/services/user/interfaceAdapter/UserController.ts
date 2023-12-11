@@ -20,8 +20,12 @@ export class UserController implements IUserController {
     return await this.userRetriever.findAll();
   }
 
-  public async findOne(id: string): Promise<Users | string> {
+  public async findOne(id: string): Promise<{ user: Users; message: string }> {
     return await this.userRetriever.findOne(id);
+  }
+
+  public async findByEmail(email: string): Promise<{ user: Users; message: string }> {
+    return await this.userRetriever.findByEmail(email);
   }
 
   public async deleteOne(id: string): Promise<number | string> {

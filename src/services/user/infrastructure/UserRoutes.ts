@@ -27,6 +27,7 @@ class UserRoutes {
           options: [
             { authorization: false, path: '/findAll', method: ['GET'] },
             { authorization: false, path: '/findOne/:id', method: ['GET'] },
+            { authorization: false, path: '/findByEmail/:email', method: ['GET'] },
             { authorization: false, path: '/deleteOne/:id', method: ['DELETE'] },
             { authorization: false, path: '/createOne', method: ['POST'] },
             { authorization: false, path: '/updateOne/:id', method: ['PUT'] }
@@ -35,25 +36,23 @@ class UserRoutes {
       });
     });
 
-    this.router.get(
-      '/findAll',
-      (req: Request, res: Response, next: NextFunction) => userApi.findAll(req, res, next)
+    this.router.get('/findAll', (req: Request, res: Response, next: NextFunction) =>
+      userApi.findAll(req, res, next)
     );
-    this.router.get(
-      '/findOne/:id',
-      (req: Request, res: Response, next: NextFunction) => userApi.findOne(req, res, next)
+    this.router.get('/findOne/:id', (req: Request, res: Response, next: NextFunction) =>
+      userApi.findOne(req, res, next)
     );
-    this.router.delete(
-      '/deleteOne/:id',
-      (req: Request, res: Response, next: NextFunction) => userApi.deleteOne(req, res, next)
+    this.router.get('/findByEmail/:email', (req: Request, res: Response, next: NextFunction) =>
+      userApi.findByEmail(req, res, next)
     );
-    this.router.post(
-      '/createOne',
-      (req: Request, res: Response, next: NextFunction) => userApi.createOne(req, res, next)
+    this.router.delete('/deleteOne/:id', (req: Request, res: Response, next: NextFunction) =>
+      userApi.deleteOne(req, res, next)
     );
-    this.router.put(
-      '/updateOne/:id',
-      (req: Request, res: Response, next: NextFunction) => userApi.updateOne(req, res, next)
+    this.router.post('/createOne', (req: Request, res: Response, next: NextFunction) =>
+      userApi.createOne(req, res, next)
+    );
+    this.router.put('/updateOne/:id', (req: Request, res: Response, next: NextFunction) =>
+      userApi.updateOne(req, res, next)
     );
   }
 }

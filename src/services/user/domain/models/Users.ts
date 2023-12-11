@@ -9,6 +9,7 @@ export interface UsersAttributes {
   lastName?: string;
   phone?: string;
   address?: string;
+  birthday?: string;
   isFather?: boolean;
   isUpdate?: boolean;
   sex?: boolean;
@@ -26,6 +27,7 @@ export type UsersOptionalAttributes =
   | 'lastName'
   | 'phone'
   | 'address'
+  | 'birthday'
   | 'isFather'
   | 'isUpdate'
   | 'sex'
@@ -44,6 +46,7 @@ export class Users
   lastName?: string;
   phone?: string;
   address?: string;
+  birthday?: string;
   isFather?: boolean;
   isUpdate?: boolean;
   sex?: boolean;
@@ -101,6 +104,10 @@ export class Users
           defaultValue: false
         },
         address: {
+          type: DataTypes.STRING,
+          allowNull: true
+        },
+        birthday: {
           type: DataTypes.STRING,
           allowNull: true
         },

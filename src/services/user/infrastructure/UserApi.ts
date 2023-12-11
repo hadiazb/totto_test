@@ -13,8 +13,8 @@ export default class UserApi {
 
   public async findAll(req: Request, res: Response, next: NextFunction) {
     try {
-      const usersListResponse = await this.userController.findAll();
-      this.apiResponse.success(req, res, { status: 200, users: usersListResponse });
+      const response = await this.userController.findAll();
+      this.apiResponse.success(req, res, { status: 200, response });
     } catch (error) {
       next(error);
     }
@@ -23,6 +23,15 @@ export default class UserApi {
   public async findOne(req: Request, res: Response, next: NextFunction) {
     try {
       const response = await this.userController.findOne(req.params.id);
+      this.apiResponse.success(req, res, { status: 200, response });
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  public async findByEmail(req: Request, res: Response, next: NextFunction) {
+    try {
+      const response = await this.userController.findByEmail(req.params.email);
       this.apiResponse.success(req, res, { status: 200, response });
     } catch (error) {
       next(error);
